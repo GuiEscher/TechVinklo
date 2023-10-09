@@ -1,9 +1,13 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[show edit update destroy]
 
   # GET /users or /users.json
   def index
-    @users = User.all
+    if params[:query].present?
+      @users = User.where("name LIKE :query OR email LIKE :query OR phone LIKE :query OR cpf LIKE :query", query: "%#{params[:query]}%")
+    else
+      @users = User.all
+    end
   end
 
   # GET /users/1 or /users/1.json
@@ -58,13 +62,14 @@ class UsersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_params
-      params.require(:user).permit(:name, :email, :phone, :cpf)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def user_params
+    params.require(:user).permit(:name, :email, :phone, :cpf)
+  end
 end

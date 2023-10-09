@@ -1,14 +1,31 @@
-<p style="color: green"><%= notice %></p>
+<%= form_tag(users_path, method: "get") do %>
+  <%= text_field_tag :query, params[:query], placeholder: "Pesquisar por nome, email, telefone ou CPF" %>
+  <%= submit_tag "Pesquisar" %>
+<% end %>
 
-<h1>Users</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>CPF</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
 
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New user", new_user_path %>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.cpf %></td>
+        <td><%= link_to 'Show', user %></td>
+        <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+ <%= link_to "New user", new_user_path %>

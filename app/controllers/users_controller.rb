@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update destroy]
 
   # GET /users or /users.json
+  # A função `index` é responsável por listar os usuários, filtrando por pesquisa, se fornecida.
   def index
     if params[:query].present?
       @users = User.where("name LIKE :query OR email LIKE :query OR phone LIKE :query OR cpf LIKE :query", query: "%#{params[:query]}%")

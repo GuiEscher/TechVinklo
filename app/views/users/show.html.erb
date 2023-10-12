@@ -1,10 +1,10 @@
-<p style="color: green"><%= notice %></p>
+<p class="success-message"><%= notice %></p>
 
 <%= render @user %>
 
-<div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
+<div class="text-center">
+  <%= link_to "Edit this user", edit_user_path(@user), class: "search-button" %> |
+  <%= link_to "Back to users", users_path, class: "search-button" %>
 
-  <%= button_to "Destroy this user", @user, method: :delete %>
+  <%= button_to "Destroy this user", @user, method: :delete, class: "search-button text-destroy" %>
 </div>
